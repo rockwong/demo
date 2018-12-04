@@ -10,13 +10,6 @@
 
 <video id="video" playsinline=""></video>
 
-<div class="footer">
-    <input type="button" value="打开摄像头" id="openCamera" />
-    <select class="none" id="videoDevice"></select>
-    <input class="none" type="button" value="开始识别" id="start" />
-    <input class="none" type="button" value="停止识别" id="stop" />
-</div>
-
 <script type="text/javascript" src="asset/libs/three/three.min.js"></script>
 <script type="text/javascript" src="asset/js/adapter.js"></script>
 <script type="text/javascript" src="asset/js/webar.js"></script>
@@ -25,11 +18,9 @@
 <script type="text/javascript" src="asset/libs/three/inflate.min.js"></script>
 <script type="text/javascript" src="asset/libs/three/OrbitControls.js"></script>
 <script type="text/javascript">
-	const webAR = new WebAR(1000, "/webAR/recognize.php");
 	const threeHelper = new ThreeHelper();
 	// 加载本地模型
 	threeHelper.loadObject("asset/model/trex_v3.fbx");
-	webAR.trace("加载模型");
 </script>
 
 </body>
