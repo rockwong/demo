@@ -20,8 +20,15 @@
 <script type="text/javascript">
 	const threeHelper = new ThreeHelper();
 	// 加载本地模型
-	threeHelper.loadObject("asset/model/xiongmao.fbx");
+  const obj={
+		model: "asset/model/xiongmao.fbx",
+		scale: .13,
+		isLoop: !0,
+		position: [0, -7, 0],
+		cameraPosition: [0, 15, 50],
+		lightPosition: [5, 55, 10]
+  }
+	threeHelper.loadObject(obj);
 </script>
-
 </body>
 </html>
