@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebAR Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="asset/css/default.css" />
+</head>
+<body>
+
+<video id="video" playsinline=""></video>
+
+<script type="text/javascript" src="asset/libs/three/three.min.js"></script>
+<script type="text/javascript" src="asset/js/adapter.js"></script>
+<script type="text/javascript" src="asset/js/webar.js"></script>
+<script type="text/javascript" src="asset/js/three-helper.js"></script>
+<script type="text/javascript" src="asset/libs/three/FBXLoader.js"></script>
+<script type="text/javascript" src="asset/libs/three/inflate.min.js"></script>
+<script type="text/javascript" src="asset/libs/three/OrbitControls.js"></script>
+<script type="text/javascript">
+	const threeHelper = new ThreeHelper();
+	// 加载本地模型
+	threeHelper.loadObject("asset/model/xiongmao.fbx");
+</script>
+
+</body>
+</html>
