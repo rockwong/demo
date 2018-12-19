@@ -97,10 +97,56 @@
 <script src="resource/pannellum.js"></script>
 <script src="resource/jsmpeg.js"></script>
 <script>
-    const videoUrl = 'resource/s.ts';
-    const videoId = 'video';
+	var pan=pannellum.viewer(
+		'container',{
+			type:'cubemap',
+			showFullscreenCtrl:false,
+			autoLoad:true,
+			autoRotate:true,
+			mouseZoom:false,
+			showZoomCtrl:false,
+			keyboardZoom:false,
+			// minPitch:-50,
+			// maxPitch:48,
+			//     horizonPitch:90,
+			//     horizonRoll:90,
+			// hotSpotDebug:true,
+			hotSpots:[{
+				pitch: 1.8315600315827771, yaw: 7.0878689215431026,
+				type:'info',
+				text:'这里可以加任何交互形式——loncus',
+				clickHandlerFunc:function (object) {
+					// console.log('object==',object)
+				}
+			},{
+				pitch: -2.282266932965087, yaw: -65.53367348554443,
+				type:'info',
+				text:'查看视频',
+				clickHandlerFunc:function (object) {
+					$('.mp4').show();
+					$('#container').hide()
+					if(player){
+						player.play();
+					}else{
+						loadVideo();
+					}
+				}
+			}],
+			//  [+z, +x, -z, -x, +y, -y]
+			cubeMap:[
+
+				'./images/asbestos-gorge_rt.jpg',
+				'./images/asbestos-gorge_ft.jpg',
+				'./images/asbestos-gorge_lf.jpg',
+				'./images/asbestos-gorge_bk.jpg',
+				'./images/asbestos-gorge_up.jpg',
+				'./images/asbestos-gorge_dn.jpg',
+			]
+		})
+    var videoUrl = 'resource/s.ts';
+    var videoId = 'video';
     let player;
-    const playerOpt = {
+    var playerOpt = {
         loop: false,
         // autoplay: true,
         disableGl: true,
@@ -108,7 +154,7 @@
         audio: true
     };
     function loadVideo  ()  {
-        const option = $.extend({}, playerOpt, { canvas: document.getElementById(videoId) });
+        var option = $.extend({}, playerOpt, { canvas: document.getElementById(videoId) });
         player=new JSMpeg.Player(videoUrl, option);
         player.volume = 1;
         player.audioOut.unlock();
@@ -118,56 +164,10 @@
         $('.close').on('click',function () {
             $('.mp4').hide();
             player.pause();
-					$('#container').show()
+            $('#container').show();
+					  pan.resize();
         })
     });
-    pannellum.viewer(
-        'container',{
-            type:'cubemap',
-            showFullscreenCtrl:false,
-            autoLoad:true,
-            autoRotate:true,
-            mouseZoom:false,
-            showZoomCtrl:false,
-            keyboardZoom:false,
-            // minPitch:-50,
-            // maxPitch:48,
-            //     horizonPitch:90,
-            //     horizonRoll:90,
-            // hotSpotDebug:true,
-            hotSpots:[{
-                pitch: 1.8315600315827771, yaw: 7.0878689215431026,
-                type:'info',
-                text:'这里可以加任何交互形式——loncus',
-                clickHandlerFunc:function (object) {
-                    console.log('object==',object)
-                }
-            },{
-                pitch: -2.282266932965087, yaw: -65.53367348554443,
-                type:'info',
-                text:'查看视频',
-                clickHandlerFunc:function (object) {
-                    console.log('object==',object)
-                    $('.mp4').show();
-									  $('#container').hide()
-                    if(player){
-                        player.play();
-                    }else{
-                        loadVideo();
-                    }
-                }
-            }],
-                //  [+z, +x, -z, -x, +y, -y]
-            cubeMap:[
-
-                './images/asbestos-gorge_rt.jpg',
-                './images/asbestos-gorge_ft.jpg',
-                './images/asbestos-gorge_lf.jpg',
-                './images/asbestos-gorge_bk.jpg',
-                './images/asbestos-gorge_up.jpg',
-                './images/asbestos-gorge_dn.jpg',
-            ]
-        })
 </script>
 </body>
 </html>
