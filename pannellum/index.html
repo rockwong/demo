@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="pannellum.css">
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        .main{
+            position: relative;
+            /*padding-bottom: 100%;*/
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+        .main .tip{
+            position: absolute;
+            left: 50px;
+            top: 10px;
+            background-color: rgba(0,0,0,0.5);
+            color: #eee;
+            font-size: 12px;
+            padding: 5px 10px;
+
+        }
+        #container{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        .tip{
+            display: none;}
+        @media all and (orientation:portrait) {
+            .tip {
+                display: block;
+            }
+        }
+
+        @media screen and (max-aspect-ratio: 13/9) {
+            .tip {
+                display: block;
+            }
+        }
+        .mp4{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: none;
+        }
+        .close{
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 20px 40px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .mp4-box{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div id="container"></div>
+    <div class="tip">横屏效果更好</div>
+    <div class="mp4">
+        <div class="mp4-box">
+            <video id="video"><source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></video>
+        </div>
+        <div class="close">
+            关闭
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="pannellum.js"></script>
+<script>
+    $(function () {
+        $('.close').on('click',function () {
+            console.log('close click',)
+            document.getElementById('video').pause();
+            $('.mp4').hide();
+        })
+    });
+    pannellum.viewer(
+        'container',{
+            type:'cubemap',
+            showFullscreenCtrl:false,
+            autoLoad:true,
+            autoRotate:true,
+            mouseZoom:false,
+            showZoomCtrl:false,
+            keyboardZoom:false,
+            // minPitch:-50,
+            // maxPitch:48,
+            //     horizonPitch:90,
+            //     horizonRoll:90,
+            hotSpotDebug:true,
+            hotSpots:[{
+                pitch: 1.8315600315827771, yaw: 7.0878689215431026,
+                type:'info',
+                text:'这里可以加任何交互形式——loncus',
+                clickHandlerFunc:function (object) {
+                    console.log('object==',object)
+                }
+            },{
+                pitch: -2.282266932965087, yaw: -65.53367348554443,
+                type:'info',
+                text:'查看视频',
+                clickHandlerFunc:function (object) {
+                    console.log('object==',object)
+                    $('.mp4').show();
+                    document.getElementById('video').play()
+
+                }
+            }],
+                //  [+z, +x, -z, -x, +y, -y]
+            cubeMap:[
+
+                './images/asbestos-gorge_rt.jpg',
+                './images/asbestos-gorge_ft.jpg',
+                './images/asbestos-gorge_lf.jpg',
+                './images/asbestos-gorge_bk.jpg',
+                './images/asbestos-gorge_up.jpg',
+                './images/asbestos-gorge_dn.jpg',
+            ]
+        })
+</script>
+</body>
+</html>
