@@ -61,6 +61,9 @@
             background-color: #000;
             display: none;
         }
+        .video{
+            width: 100%;
+        }
         .close{
             position: absolute;
             right: 20px;
@@ -83,7 +86,7 @@
     <div class="tip">横屏效果更好</div>
     <div class="mp4">
         <div class="mp4-box">
-            <video id="video"><source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></video>
+            <canvas class="video" id="video"></canvas>
         </div>
         <div class="close">
             关闭
@@ -91,13 +94,30 @@
     </div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="pannellum.js"></script>
+<script src="resource/pannellum.js"></script>
+<script src="resource/jsmpeg.js"></script>
 <script>
+    const videoUrl = 'resource/s.ts';
+    const videoId = 'video';
+    let player;
+    const playerOpt = {
+        loop: false,
+        // autoplay: true,
+        disableGl: true,
+        progressive: false,
+        audio: true
+    };
+    function loadVideo  ()  {
+        const option = $.extend({}, playerOpt, { canvas: document.getElementById(videoId) });
+        player=new JSMpeg.Player(videoUrl, option);
+        player.volume = 1;
+        player.audioOut.unlock();
+        player.play();
+    };
     $(function () {
         $('.close').on('click',function () {
-            console.log('close click',)
-            document.getElementById('video').pause();
             $('.mp4').hide();
+            player.pause();
         })
     });
     pannellum.viewer(
@@ -113,7 +133,7 @@
             // maxPitch:48,
             //     horizonPitch:90,
             //     horizonRoll:90,
-            hotSpotDebug:true,
+            // hotSpotDebug:true,
             hotSpots:[{
                 pitch: 1.8315600315827771, yaw: 7.0878689215431026,
                 type:'info',
@@ -128,8 +148,11 @@
                 clickHandlerFunc:function (object) {
                     console.log('object==',object)
                     $('.mp4').show();
-                    document.getElementById('video').play()
-
+                    if(player){
+                        player.play();
+                    }else{
+                        loadVideo();
+                    }
                 }
             }],
                 //  [+z, +x, -z, -x, +y, -y]
