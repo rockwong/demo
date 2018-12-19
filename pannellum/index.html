@@ -118,6 +118,7 @@
         $('.close').on('click',function () {
             $('.mp4').hide();
             player.pause();
+					$('#container').show()
         })
     });
     pannellum.viewer(
@@ -148,6 +149,7 @@
                 clickHandlerFunc:function (object) {
                     console.log('object==',object)
                     $('.mp4').show();
+									  $('#container').hide()
                     if(player){
                         player.play();
                     }else{
